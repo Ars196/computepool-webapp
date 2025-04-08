@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ComputePool</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; }
+        #status { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>ComputePool</h1>
+    <button onclick="startTask()">Начать задачу</button>
+    <div id="status">Нажми кнопку, чтобы начать!</div>
+
+    <script>
+        function startTask() {
+            let hashes = 0;
+            const startTime = Date.now();
+            // Простое вычисление: считаем до 1 миллиона
+            for (let i = 0; i < 1000000; i++) {
+                hashes += i;
+            }
+            const endTime = Date.now();
+            const timeTaken = (endTime - startTime) / 1000; // Время в секундах
+            document.getElementById("status").innerText = 
+                `Задача выполнена! Вычислено ${hashes} хешей за ${timeTaken} сек.`;
+        }
+    </script>
+</body>
+</html>
