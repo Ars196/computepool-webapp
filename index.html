@@ -39,17 +39,20 @@
         function startTask() {
             let hashes = 0;
             const startTime = Date.now();
-            for (let i = 0; i < 1000000; i++) {
-                hashes += i;
+            for (let i = 0; i < 100000000; i++) {
+                hashes += Math.sin(i);
             }
             const endTime = Date.now();
             const timeTaken = (endTime - startTime) / 1000;
             document.getElementById("status").innerText = 
-                `Задача выполнена! Вычислено ${hashes} хешей за ${timeTaken} сек.`;
-            // Отправляем данные боту
+                `Задача выполнена! Вычислено ${hashes.toFixed(2)} хешей за ${timeTaken} сек.`;
             try {
                 window.Telegram.WebApp.sendData("task_completed");
                 document.getElementById("status").innerText += "\nДанные отправлены боту!";
+                // Закрываем Web App через 2 секунды
+                setTimeout(() => {
+                    window.Telegram.WebApp.close();
+                }, 2000);
             } catch (error) {
                 document.getElementById("status").innerText += "\nОшибка отправки: " + error.message;
             }
