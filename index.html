@@ -8,8 +8,8 @@
             font-family: Arial, sans-serif; 
             text-align: center; 
             margin-top: 50px; 
-            background-color: #ffffff; /* Светлый фон */
-            color: #000000; /* Черный текст */
+            background-color: #ffffff;
+            color: #000000;
         }
         button { 
             padding: 10px 20px; 
@@ -32,3 +32,28 @@
 </head>
 <body>
     <h1>ComputePool</h1>
+    <button onclick="startTask()">Начать задачу</button>
+    <div id="status">Нажми кнопку, чтобы начать!</div>
+
+    <script>
+        function startTask() {
+            let hashes = 0;
+            const startTime = Date.now();
+            for (let i = 0; i < 1000000; i++) {
+                hashes += i;
+            }
+            const endTime = Date.now();
+            const timeTaken = (endTime - startTime) / 1000;
+            document.getElementById("status").innerText = 
+                `Задача выполнена! Вычислено ${hashes} хешей за ${timeTaken} сек.`;
+            // Отправляем данные боту
+            try {
+                window.Telegram.WebApp.sendData("task_completed");
+                document.getElementById("status").innerText += "\nДанные отправлены боту!";
+            } catch (error) {
+                document.getElementById("status").innerText += "\nОшибка отправки: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
