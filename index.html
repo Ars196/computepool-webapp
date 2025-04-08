@@ -4,31 +4,31 @@
     <title>ComputePool</title>
     <meta charset="UTF-8">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        button { padding: 10px 20px; font-size: 16px; }
-        #status { margin-top: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin-top: 50px; 
+            background-color: #ffffff; /* Светлый фон */
+            color: #000000; /* Черный текст */
+        }
+        button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #status { 
+            margin-top: 20px; 
+            font-size: 18px; 
+        }
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <h1>ComputePool</h1>
-    <button onclick="startTask()">Начать задачу</button>
-    <div id="status">Нажми кнопку, чтобы начать!</div>
-
-    <script>
-        function startTask() {
-            let hashes = 0;
-            const startTime = Date.now();
-            for (let i = 0; i < 1000000; i++) {
-                hashes += i;
-            }
-            const endTime = Date.now();
-            const timeTaken = (endTime - startTime) / 1000;
-            document.getElementById("status").innerText = 
-                `Задача выполнена! Вычислено ${hashes} хешей за ${timeTaken} сек.`;
-            // Отправляем данные боту
-            window.Telegram.WebApp.sendData("task_completed");
-        }
-    </script>
-</body>
-</html>
