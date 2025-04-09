@@ -36,6 +36,14 @@
     <div id="status">Нажми кнопку, чтобы начать!</div>
 
     <script>
+        // Проверяем, доступен ли Telegram Web App
+        if (typeof window.Telegram === "undefined" || typeof window.Telegram.WebApp === "undefined") {
+            document.getElementById("status").innerText = "Ошибка: Telegram Web App API не доступен.";
+        } else {
+            document.getElementById("status").innerText = "Telegram Web App API готов.";
+            window.Telegram.WebApp.ready(); // Сообщаем Telegram, что Web App готов
+        }
+
         function startTask() {
             let hashes = 0;
             const startTime = Date.now();
@@ -49,7 +57,6 @@
             try {
                 window.Telegram.WebApp.sendData("task_completed");
                 document.getElementById("status").innerText += "\nДанные отправлены боту!";
-                // Закрываем Web App через 2 секунды
                 setTimeout(() => {
                     window.Telegram.WebApp.close();
                 }, 2000);
