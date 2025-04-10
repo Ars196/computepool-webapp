@@ -19,6 +19,7 @@
             border: none; 
             border-radius: 5px; 
             cursor: pointer; 
+            margin: 10px;
         }
         button:hover {
             background-color: #0056b3;
@@ -36,12 +37,11 @@
     <div id="status">Нажми кнопку, чтобы начать!</div>
 
     <script>
-        // Проверяем, доступен ли Telegram Web App
         if (typeof window.Telegram === "undefined" || typeof window.Telegram.WebApp === "undefined") {
             document.getElementById("status").innerText = "Ошибка: Telegram Web App API не доступен.";
         } else {
             document.getElementById("status").innerText = "Telegram Web App API готов.";
-            window.Telegram.WebApp.ready(); // Сообщаем Telegram, что Web App готов
+            window.Telegram.WebApp.ready();
         }
 
         function startTask() {
@@ -53,16 +53,10 @@
             const endTime = Date.now();
             const timeTaken = (endTime - startTime) / 1000;
             document.getElementById("status").innerText = 
-                `Задача выполнена! Вычислено ${hashes.toFixed(2)} хешей за ${timeTaken} сек.`;
-            try {
-                window.Telegram.WebApp.sendData("task_completed");
-                document.getElementById("status").innerText += "\nДанные отправлены боту!";
-                setTimeout(() => {
-                    window.Telegram.WebApp.close();
-                }, 2000);
-            } catch (error) {
-                document.getElementById("status").innerText += "\nОшибка отправки: " + error.message;
-            }
+                `Задача выполнена! Вычислено ${hashes.toFixed(2)} хешей за ${timeTaken} сек.\nОтправь команду /task_completed в чат, чтобы подтвердить выполнение.`;
+            setTimeout(() => {
+                window.Telegram.WebApp.close();
+            }, 3000);
         }
     </script>
 </body>
